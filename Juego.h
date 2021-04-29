@@ -10,8 +10,8 @@
 
 class Juego {
 public:
-       Juego::Juego(){  //constructor
-          Tablero* tablero= new  Tablero();
+          Juego(){  //constructor
+
 
 
        }
@@ -19,8 +19,7 @@ public:
 
 private:
        Tablero* tablero;
-       Barco barcos[10];
-       ColaDePilas disparos;
+
 
 
 };

@@ -3,3 +3,7 @@
 //
 
 #include "Barco.h"
+
+void Barco::setPos(Posicion pos, int a){
+     posBarco[a]=pos;
+}
