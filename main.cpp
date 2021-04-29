@@ -5,6 +5,7 @@
 using namespace std;
 
 int main() {
+    //aa
     Tablero tablero=Tablero();
     ColaDePilas* disparos= new ColaDePilas();
     //Creamos los 10 barcos
