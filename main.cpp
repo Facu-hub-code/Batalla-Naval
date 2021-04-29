@@ -3,7 +3,8 @@ using namespace std;
 #include "Tablero.h"
 int main() {
     cout<<"Hello world"<<endl;
-    Tablero* tablero = new Tablero();
-    cout<<tablero->getI();
+    Tablero tablero ;
+
+
     return 0;
 }
