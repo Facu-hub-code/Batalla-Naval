@@ -2,13 +2,13 @@
 // Created by patri on 29/04/2021.
 //
 
-#include "ColaDePilas.h"
+#include "Cola.h"
 #include <iostream>
 using namespace std;
 /*
  * Metodo para insertar Pilas.
  */
-void ColaDePilas::AgregarPila(int posX, int posY){
+void Cola::AgregarPila(int posX, int posY){
 
 }
 
@@ -17,4 +17,4 @@ void ColaDePilas::AgregarPila(int posX, int posY){
 */
 
 
-void ColaDePilas::RetirarPila() {}
+void Cola::RetirarPila() {}

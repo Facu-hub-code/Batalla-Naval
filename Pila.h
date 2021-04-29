@@ -2,19 +2,19 @@
 // Created by patri on 29/04/2021.
 //
 
-#ifndef CODIGO_PILADEPOS_H
-#define CODIGO_PILADEPOS_H
+#ifndef CODIGO_PILA_H
+#define CODIGO_PILA_H
 #include "Posicion.h"
 
-class PilaDePos {
+class Pila {
 private:
     Posicion* siguiente;
     Posicion alrederores[4];
 public:
-    PilaDePos(){
+    Pila(){
 
     }
 };
 
 
-#endif //CODIGO_PILADEPOS_H
+#endif //CODIGO_PILA_H

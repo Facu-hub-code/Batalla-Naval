@@ -4,17 +4,17 @@
 #include <iostream>
 #ifndef CODIGO_COLADEPILAS_H
 #define CODIGO_COLADEPILAS_H
-#include "PilaDePos.h"
+#include "Pila.h"
 
-class ColaDePilas {
+class Cola {
 public:
-    ColaDePilas(){}
+    Cola(){}
     void AgregarPila(int posX, int posY);
     void RetirarPila();
     void leerLista();
 private:
-    PilaDePos* primero = NULL;
-    PilaDePos* final= NULL;
+    Pila* primero = NULL;
+    Pila* final= NULL;
 
 };
 

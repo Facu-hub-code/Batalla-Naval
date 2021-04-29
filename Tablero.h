@@ -7,13 +7,10 @@
 
 class Tablero {
 public:
-    Tablero(){
-
-    }
+    Tablero();//constructor por defecto
 private:
     Posicion casilleros[10][10];
     bool disparosAnotados[10][10];
-
 };
 
 

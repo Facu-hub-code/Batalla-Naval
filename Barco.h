@@ -9,18 +9,11 @@
 class Barco {
 public:
     Barco() {}
-
-
-     void setPos(Posicion pos, int a);
-
-
-
+    void setPos(Posicion pos, int a);
 private:
     Posicion posBarco[4];
     char tipo;//Crucero, submarino, etc
     char estado;//averiado, hundido, agua
-
-
 };
 
 
