@@ -10,8 +10,10 @@
 
 class Juego {
 public:
-       Juego(){  //constructor
+       Juego::Juego(){  //constructor
           Tablero* tablero= new  Tablero();
+
+
        }
 
 

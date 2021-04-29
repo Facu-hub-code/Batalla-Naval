@@ -4,6 +4,4 @@
 
 #include "Tablero.h"
 
-int Tablero::getI() const {
-    return i;
-}
+

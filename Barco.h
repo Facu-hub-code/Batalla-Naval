@@ -8,7 +8,7 @@
 
 class Barco {
 public:
-     Barco(char tipo,Posicion posBarco[4]){
+    Barco(char tipo, Posicion posBarco[4]){
          this -> tipo = tipo;
          this -> posBarco[4]=posBarco[4];
 

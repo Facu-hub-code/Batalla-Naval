@@ -14,7 +14,7 @@ public:
     void leerLista();
 private:
     PilaDePos* primero = NULL;
-    PilaDePos* siguiente= NULL;
+    PilaDePos* final= NULL;
 
 };
 

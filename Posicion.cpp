@@ -3,4 +3,4 @@
 //
 
 #include "Posicion.h"
-//TODO hacer setter y getter de la posicion completa y sin booleanos
+
