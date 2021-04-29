@@ -1,18 +1,19 @@
 //
 // Created by Facundo Lorenzo on 29/04/2021.
 //
-
+#import "Posicion.h"
 #ifndef CODIGO_TABLERO_H
 #define CODIGO_TABLERO_H
 
 class Tablero {
 public:
-    Tablero();
+    Tablero(){
 
-    int getI() const;
-
+    }
 private:
-    int i=10;
+    Posicion casilleros[10][10];
+    bool disparosAnotados[10][10];
+
 };
 
 

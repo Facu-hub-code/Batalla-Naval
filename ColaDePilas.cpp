@@ -3,3 +3,18 @@
 //
 
 #include "ColaDePilas.h"
+#include <iostream>
+using namespace std;
+/*
+ * Metodo para insertar Pilas.
+ */
+void ColaDePilas::AgregarPila(int posX, int posY){
+
+}
+
+/*
+ * Metodo para obtener Nodos = Aldeanos a la Lista.
+*/
+
+
+void ColaDePilas::RetirarPila() {}
