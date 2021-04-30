@@ -6,19 +6,26 @@
 #include "Tablero.h"
 #import "Barco.h"
 #import "Cola.h"
-
-void inicializar();
 using namespace std;
+
+//Variables globales.
+Tablero tablero = Tablero();
+Barco barcos[10];
+bool juegoFinalizado = false;
+
 //Prototipos
 void inicializar();
+void disparar();
 
+//METODO PRINCIPAL
 int main() {
+
     inicializar();
+    disparar();
     return 0;
 }
 void inicializar() {
-    Tablero tablero = Tablero();
-    Barco barcos[10];
+
     for (int i = 0; i < 10; ++i) {
         //creo un barco
         cout<<"Barco ["<<i<<"]"<<endl;
@@ -128,4 +135,7 @@ void inicializar() {
                 }break;
         }
     }
+}
+void disparar(){
+
 }

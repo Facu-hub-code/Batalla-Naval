@@ -21,8 +21,10 @@ public:
     Posicion(){}
     int getX() const {return pos.x;}
     int getY() const {return pos.y;}
-    const posStruct &getPos() const {return pos;}
     bool isOcupado() const {return pos.ocupado;}
+    //const posStruct &getPos() const {return pos;}
+
+    //Setters
     void setEstado(char estado) {pos.estado = estado;}
     void setX(int cx) {pos.x=cx;}
     void setY(int cy) {pos.y=cy;}
