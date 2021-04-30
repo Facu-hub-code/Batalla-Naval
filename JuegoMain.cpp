@@ -19,9 +19,11 @@ void disparar();
 
 //METODO PRINCIPAL
 int main() {
-
     inicializar();
-    disparar();
+    for (int i = 0; i < 2; ++i) {
+        barcos[i].printDeEstado();
+    }
+    //disparar();
     return 0;
 }
 
@@ -32,20 +34,14 @@ int main() {
  * Ej: si ingreso {[4 ; 4] ; U ; D} obtendre ocupadas las posiciones: [4,4] [4,5] [4,6] [4,7] por un DESTRUCTOR.
  */
 void inicializar() {
-    for (int i = 0; i < 10; ++i) {
-        //Creo un barco
+    for (int i = 0; i < 2; ++i) {
         cout<<"Barco ["<<i<<"]"<<endl;
-        barcos[i] = Barco();
-        //Creo la primera posicion del barco
-        Posicion posAux = Posicion();
+
+        //Obetenemos la posicion inicial de referencia.
         cout<<"Ingrese la coordenada de referencia inicial [X ; Y]\n (Ingrese X -> ENTER -> Y -> ENTER)"<<endl;
         int x,y;
         cin>>x>>y;
-        posAux.setXY(x,y);
-        posAux.setOcupado(true);
-        posAux.setEstado(NULL);
-        //Aca ya tengo la primera posicion del barco.
-        barcos[i].setPos(posAux,0); //seteo la posicion inicial
+        Posicion posAux = Posicion(x,y);
 
         cout<<"Ingrese una direccion (para completar el barco)\n Pueden ser: [Up:U, Down:D, Left:L, Right:R]"<<endl;
         char direc;
@@ -55,6 +51,9 @@ void inicializar() {
         char tipo;
         cin>>tipo;
 
+        barcos[i] = Barco(posAux, tipo);
+
+        //Decodificar tipo y Direccion.
         switch (tipo) {
             case 'D':
                 switch (direc) {
@@ -82,7 +81,9 @@ void inicializar() {
                             barcos[i].setPos(posAux, i + 1);
                         }
                         break;
-
+                    default:
+                        cout<<"Se ingreso una direccion invalida."<<endl;
+                        break;
                 }
 
             case 'C':
@@ -111,6 +112,9 @@ void inicializar() {
                             barcos[i].setPos(posAux, i + 1);
                         }
                         break;
+                    default:
+                        cout<<"Se ingreso una direccion invalida."<<endl;
+                        break;
                 }
             case 'c':
                 switch (direc) {
@@ -138,7 +142,14 @@ void inicializar() {
                             barcos[i].setPos(posAux, i + 1);
                         }
                         break;
-                }break;
+                    default:
+                        cout<<"Se ingreso una direccion invalida."<<endl;
+                        break;
+                }
+            default:
+                cout<<"Se ingreso un tipo invalido."<<endl;
+                break;
+        break;
         }
     }
 }

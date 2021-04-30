@@ -8,17 +8,21 @@
 
 class Barco {
 public:
-    Barco() {}
-    void setPos(Posicion pos, int a);
-    const Posicion *getPosBarco() const;
+    Barco();
+    Barco(Posicion posInicial, char tipo);
+    Posicion getPosicion(int );
     char getTipo() const;
     char getEstado() const;
+
+    void setPos(Posicion pos, int a);
     void setTipo(char tipo);
     void setEstado(char estado);
+
+    void printDeEstado();
 private:
     Posicion posBarco[4];
-    char tipo;//Crucero, submarino, etc
-    char estado;//averiado, hundido, agua
+    char tipo; //[Destructor, Submarino, Canonero, Crucero]
+    char estado;//[Averiado: a, Intacto: i, Hundido: h]
 };
 
 #endif //CODIGO_BARCO_H
