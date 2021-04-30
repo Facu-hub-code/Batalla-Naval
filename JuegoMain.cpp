@@ -55,7 +55,7 @@ void inicializar() {
         cout<<"Ingrese el tipo de Barco: [C:Crucero, D:Destructor, S:Submarino, c:Canonero]"<<endl;
         char tipo;
         cin>>tipo;
-        Barco barAux(posAux, tipo);
+        Barco barAux(posAux, tipo);// bar
         barcos[i] = barAux;
 
         //Decodificar tipo y Direccion.
