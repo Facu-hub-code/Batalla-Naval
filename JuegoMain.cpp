@@ -24,15 +24,21 @@ int main() {
     disparar();
     return 0;
 }
-void inicializar() {
 
+/*
+ * Este metodo inicializa 10 Barcos pidiendo por consola una POSICION de referencia, una DIRECCION y un TIPO de barco.
+ * El algoritmo completa 4 lugares segun sea el tipo (ej el Destructor ocupa 4, y el submarino solo 1).
+ * Dichas posiciones se completan segun se indique la direccion (ej char Direccion = U -> significa UP:Arriba).
+ * Ej: si ingreso {[4 ; 4] ; U ; D} obtendre ocupadas las posiciones: [4,4] [4,5] [4,6] [4,7] por un DESTRUCTOR.
+ */
+void inicializar() {
     for (int i = 0; i < 10; ++i) {
-        //creo un barco
+        //Creo un barco
         cout<<"Barco ["<<i<<"]"<<endl;
         barcos[i] = Barco();
-        //creo la primera posicion del barco
+        //Creo la primera posicion del barco
         Posicion posAux = Posicion();
-        cout<<"Ingrese primer coordenada [X ; Y]"<<endl;
+        cout<<"Ingrese la coordenada de referencia inicial [X ; Y]\n (Ingrese X -> ENTER -> Y -> ENTER)"<<endl;
         int x,y;
         cin>>x>>y;
         posAux.setXY(x,y);
@@ -139,3 +145,4 @@ void inicializar() {
 void disparar(){
 
 }
+//TODO: para sumar puntos revisar los overflow del tablero.
