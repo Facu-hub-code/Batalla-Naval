@@ -24,11 +24,14 @@ void inicializarPorConsola();
 void inicializarPorDefecto();
 void jugar();
 void disparar();
-
+//TODO: contemplar v,a,a,a -> saltar a otra pila
+//TODO: contempalr si es ej horizontal, y [4,4]v ; [3,4]v ; [2,4]a ir directamente a [5,4]v
+//TODO: si todavia no lo hundio apilar [6,4]
 //METODO PRINCIPAL
 int main() {
     inicializarPorDefecto();
     jugar();
+    tablero.printDisparos();
     return 0;
 }
 

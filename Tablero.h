@@ -8,6 +8,7 @@
 class Tablero {
 public:
     Tablero();//constructor por defecto
+    void printDisparos();
 private:
     bool disparosAnotados[10][10];
 };
