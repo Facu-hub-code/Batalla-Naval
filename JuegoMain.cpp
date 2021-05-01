@@ -210,6 +210,7 @@ void inicializarPorConsola() {
 void jugar() {
     int contador = 0;
     while (!juegoFinalizado) {
+        //Coordenadas de la nueva posicion a disparar
         int ranX = 1 + rand() % (10 - 1 + 1);
         int ranY = 1 + rand() % (10 - 1 + 1);
         Posicion posAux = Posicion();
@@ -238,25 +239,53 @@ void disparar(){
     char estado;
     cin >> estado;
     if(estado == 'v'){
+        //Recupero las coordenadas del primer disparo acertado de la Pila actual.
         int ranX = pilaPosiciones().getComienzo()->getX();
         int ranY = pilaPosiciones().getComienzo()->getY();
 
-        //Pila de posiciones alrededor.
+        //Apilo posiciones alrededor del priemr disparo acertado de la Pila actual.
         pilaPosiciones().add(ranX,ranY+1, false);
         pilaPosiciones().add(ranX,ranY-1, false);
         pilaPosiciones().add(ranX+1,ranY, false);
-        pilaPosiciones().add(ranX-1,ranY, false);
+        pilaPosiciones().add(ranX-1,ranY, false);  //LEFT es el TOPE
+
         //TODO: cambiar a ocupado cuando le pego a un barco.
-        while(estado == 'v'){ //ir probando la pila de posiciones alrededores
-            cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
+
+        while(estado == 'v'){   //Mientras este averiado, disparo a los alrededores.
+            cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl; //Disparo al TOPE de la Pila Actual.
             cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]"<<endl;
             cin>>estado;
-            if(estado == 'a'){ //4.1)Si es agua, sigo con el proximo de la pila.
+
+            if(estado == 'h'){break;}//4.2)Si es hundido, descarto la pila actual y vuelvo a 1)
+
+            /*
+             * 4.3)Si es averiado, (caso de barcos grandes), hay que apilar la siguiente posición en la linea del barco,
+             * porque ya se sabe que direccion tiene el barco, y vuelvo a disparar usando la pila actual.
+             */
+            if(estado == 'v'){
+                //recupero pos 2do disparo para buscar la direccion [HORIZONTAL VERTICAL] A Apilar.
+                int ranX2 = pilaPosiciones().getComienzo()->getX();
+                int ranY2 = pilaPosiciones().getComienzo()->getY();
+                int direccionX= ranX - ranX2; //Me fijo si esta horizontal
+                switch (direccionX) {
+                    case -1: //Se movio para la Derecha
+                        pilaPosiciones().add(ranX+1,ranY, false);
+                        break;
+                    case 1: //Se movio para la Izquierda.
+                        pilaPosiciones().add(ranX-1,ranY, false); //Nuevo TOPE
+                        break;
+                    case 0: //Se movio en vertical
+                        int direccionY = ranY-ranY2;
+                        if(direccionY == -1){ //Se movio para Arriba
+                            pilaPosiciones().add(ranX,ranY+1, false);
+                        }if(direccionY == 1){ //Se movio para Abajo
+                            pilaPosiciones().add(ranX,ranY-1, false);
+                        }
+                        break;
+                }
+            }if(estado == 'a'){ //4.1)Si es agua, sigo con el proximo de la pila.
                 pilaPosiciones().borrar(); //borro la Posicion cabeza.
                 estado = 'v';
-            }if(estado == 'h'){break;}
-            if(estado == 'v'){
-                
             }
         }
     }
