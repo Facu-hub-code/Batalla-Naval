@@ -6,18 +6,23 @@
 #include "Tablero.h"
 #import "Barco.h"
 #import "Cola.h"
+#include "Pila.h"
+
+
 using namespace std;
 
 //Variables globales.
 Tablero tablero = Tablero();
 Barco barcos[9]; //se ejecuta el constructor por defecto de cada barco.
 bool juegoFinalizado = false;
-int const cantidadDeDisparos = 20;
+int const cantDisparosMAX = 20;
 int const cantidadDeBarcos = 10;
+Pila pilaPosiciones();
 
 //Prototipos
 void inicializarPorConsola();
 void inicializarPorDefecto();
+void jugar();
 void disparar();
 
 //METODO PRINCIPAL
@@ -27,7 +32,7 @@ int main() {
     for (int i = 0; i < cantidadDeBarcos; ++i) {
         barcos[i].printDeEstado();
     }
-    //disparar();
+    //jugar();
     return 0;
 }
 
@@ -202,54 +207,57 @@ void inicializarPorConsola() {
  * Este metodo apunta a una posicion de la cola de posiciones para realizar un disparo.
  * Dependiendo de la respuesta del usuario calcula el siguiente disparo.
  */
-void disparar(){
-    int contador=0;
-        while(!juegoFinalizado){
-            int ranX = 1 + rand() % (10-1+1);
-            int ranY = 1 + rand() % (10-1+1);
-            Posicion posAux = Posicion();
-            posAux.siguiente->setXY(ranX, ranY);
-            Cola* colaPosiciones = new Cola(posAux.siguiente);
+void jugar() {
+    int contador = 0;
+    while (!juegoFinalizado) {
+        int ranX = 1 + rand() % (10 - 1 + 1);
+        int ranY = 1 + rand() % (10 - 1 + 1);
+        Posicion posAux = Posicion();
+        posAux.siguiente->setXY(ranX, ranY);
+        Cola *colaPosiciones = new Cola(posAux.siguiente);
 
-            //TODO: anotar los disparos en el tablero.
-            cout<<"Disparo a la posicion: ["<<ranX<<" ; "<<ranY<<" ]"<<endl;
-            cout<<"Fue un acierto? [Agua:a, Averiado:v, Hundido:h]"<<endl;
-            char estado;
+        //TODO: anotar los disparos en el tablero.
+        cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
+        disparar();
+
+        //Si no fue un acierto, cuento el disparo en el contado y vuelvo a ingresar al while.
+        contador++;
+        if (contador == cantDisparosMAX) {
+            juegoFinalizado = true;
+        } else {
+            cout << "Se intentara otro disparo..." << endl;
+        }
+
+    }
+    cout << "GAME OVER" << endl;
+}
+
+
+void disparar(){
+    cout<<"Fue un acierto? [Agua:a, Averiado:v, Hundido:h]"<<endl;
+    char estado;
+    cin >> estado;
+    if(estado == 'v'){
+        int ranX = pilaPosiciones().getComienzo()->getX();
+        int ranY = pilaPosiciones().getComienzo()->getY();
+
+        //Pila de posiciones alrededor.
+        pilaPosiciones().add(ranX,ranY+1, false);
+        pilaPosiciones().add(ranX,ranY-1, false);
+        pilaPosiciones().add(ranX+1,ranY, false);
+        pilaPosiciones().add(ranX-1,ranY, false);
+        //TODO: cambiar a ocupado cuando le pego a un barco.
+        while(estado == 'v'){ //ir probando la pila de posiciones alrededores
+            cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
+            cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]"<<endl;
             cin>>estado;
+            if(estado == 'a'){ //4.1)Si es agua, sigo con el proximo de la pila.
+                pilaPosiciones().borrar(); //borro la Posicion cabeza.
+                estado = 'v';
+            }if(estado == 'h'){break;}
             if(estado == 'v'){
-                cout<<"Donde quiere hacer el proximo disparo: [U,D,L,R]"<<endl;
-                char segundo;
-                cin>>segundo;
-                switch (segundo) {
-                    case 'U':
-                        posAux.siguiente->setXY(ranX, ranY+1);
-                        //Cola* colaPosiciones = new Cola(posAux.siguiente);
-                        break;
-                    case 'D':
-                        posAux.siguiente->setXY(ranX, ranY-1);
-                        break;
-                    case 'L':
-                        posAux.siguiente->setXY(ranX-1, ranY);
-                        break;
-                    case 'R':
-                        posAux.siguiente->setXY(ranX+1, ranY);
-                        break;
-                }
-                for (int i = 0; i < 10; ++i) {
-                    //reviso si le pegue a algun barco.
-                    bool flag = false;
-                    for (int j = 0; j < 4; ++j) {
-                        //if(barcos[i].getPosicion(j) == posAux){}
-                    }
-                }
-            }else if(estado == 'a'){
-                cout<<"Se intentara otro disparo..."<<endl;
-            }
-            //Si no fue un acierto, cuento el disparo en el contado y vuelvo a ingresar al while.
-            contador++;
-            if(contador == 20){
-                juegoFinalizado = true;
+                
             }
         }
-        cout<<"GAME OVER"<<endl;
+    }
 }

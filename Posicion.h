@@ -16,13 +16,18 @@ public:
     Posicion(int , int , bool);
     Posicion();
 
-    //Puntero a la siguiente posicion.
+    bool es_vacio() { return siguiente == NULL; }
+
+    //Puntero
     Posicion* siguiente = NULL;
+    void set_next(Posicion* n) { siguiente = n; };
+    Posicion* get_next() { return siguiente; };
 
     //Getters
     int getX() const {return x;}
     int getY() const {return y;}
     bool getOcupado() const {return ocupado;}
+
     //Setters
     void setX(int cx) {x=cx;}
     void setY(int cy) {y=cy;}

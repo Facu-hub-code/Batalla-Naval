@@ -3,4 +3,4 @@ project(Codigo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Codigo JuegoMain.cpp Tablero.cpp Tablero.h Barco.cpp Barco.h Cola.cpp Cola.h Posicion.cpp Posicion.h)
+add_executable(Codigo JuegoMain.cpp Tablero.cpp Tablero.h Barco.cpp Barco.h Cola.cpp Cola.h Posicion.cpp Posicion.h Pila.cpp Pila.h)
