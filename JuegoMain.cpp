@@ -15,12 +15,14 @@ bool juegoFinalizado = false;
 int const cantidadDeDisparos = 20;
 
 //Prototipos
-void inicializar();
+void inicializarPorConsola();
+void inicializarPorDefecto();
 void disparar();
 
 //METODO PRINCIPAL
 int main() {
-    inicializar();
+    //inicializarPorConsola();
+    inicializarPorDefecto();
     for (int i = 0; i < 2; ++i) {
         barcos[i].printDeEstado();
     }
@@ -34,8 +36,7 @@ int main() {
  * Dichas posiciones se completan segun se indique la direccion (ej char Direccion = U -> significa UP:Arriba).
  * Ej: si ingreso {[4 ; 4] ; U ; D} obtendre ocupadas las posiciones: [4,4] [4,5] [4,6] [4,7] por un DESTRUCTOR.
  */
-
-void inicializar() {
+void inicializarPorConsola() {
     for (int i = 0; i < 2; ++i) {
         cout<<"Barco ["<<i<<"]"<<endl;
         //Obetenemos la posicion inicial de referencia.
@@ -142,9 +143,10 @@ void inicializar() {
         }
     }
 }
+
 /*
- * Toma una posicion de la cola de posiciones.
- * La analiza y ve si sigue ahi cerca o se va a otra.
+ * Este metodo apunta a una posicion de la cola de posiciones para realizar un disparo.
+ * Dependiendo de la respuesta del usuario calcula el siguiente disparo.
  */
 void disparar(){
     int contador=0;
@@ -196,4 +198,56 @@ void disparar(){
             }
         }
         cout<<"GAME OVER"<<endl;
+}
+/*
+ * Este metodo inicializa los barcos por defecto en posiciones predefinidas.
+ */
+void inicializarPorDefecto(){
+    //Canoneros
+    // c0:pc00[1,1]  pc01[1,2]
+    Posicion posc00 = Posicion(1, 1);
+    Barco barcoc0 = Barco(posc00, 'c');
+    Posicion posc01 = Posicion(1, 2);
+    barcoc0.setPos(posc01, 1);
+    //c1:pc02[3,8]  pc03[4,8]
+    Posicion posc02 = Posicion(3, 8);
+    Barco barcoc1 = Barco(posc02, 'c');
+    Posicion posc03 = Posicion(4,8);
+    barcoc1.setPos(posc03, 1);
+    //Submarinos
+    //S1:[1,10]
+    Posicion posS1 = Posicion(1,10);
+    Barco barcoS1 = Barco(posS1, 'S');
+    //S2:[10,10]
+    Posicion posS2 = Posicion(10,10);
+    Barco barcoS2 = Barco(posS2, 'S');
+    // S3:[10,1]
+    Posicion posS3 = Posicion(1,10);
+    Barco barcoS3 = Barco(posS3, 'S');
+    //Destructor
+    // [4,3], [4,4],[4,5],[4,6]
+    Posicion posD0 = Posicion(4,3);
+    Barco barcoD0 = Barco(posD0, 'D');
+    Posicion posD1 = Posicion(4,4);
+    barcoD0.setPos(posD1, 1);
+    Posicion posD2 = Posicion(4,5);
+    barcoD0.setPos(posD2, 2);
+    Posicion posD3 = Posicion(4,6);
+    barcoD0.setPos(posD3, 3);
+    //Cruceros
+    //C1:[6,3],[7,3],[8,3]
+    Posicion posC1 = Posicion(6,3);
+    Barco barcoC1 = Barco(posC1, 'C');
+    Posicion posC2 = Posicion(7,3);
+    barcoC1.setPos(posC2, 1);
+    Posicion posC3 = Posicion(8,3);
+    barcoC1.setPos(posC3, 2);
+    //C2:[7,9],[8,9],[9,9]
+    Posicion posC01 = Posicion(7,9);
+    Barco barcoC2 = Barco(posC01, 'C');
+    Posicion posC02 = Posicion(8,9);
+    barcoC2.setPos(posC02, 1);
+    Posicion posC03 = Posicion(9,9);
+    barcoC2.setPos(posC03, 2);
+
 }
