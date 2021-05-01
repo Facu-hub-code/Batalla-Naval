@@ -4,8 +4,7 @@
 #include <iostream>
 #ifndef CODIGO_COLADEPILAS_H
 #define CODIGO_COLADEPILAS_H
-#include "Pila.h"
-
+#include "Posicion.h"
 class Cola {
 public:
     Cola();

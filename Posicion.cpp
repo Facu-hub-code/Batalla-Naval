@@ -13,7 +13,7 @@ Posicion::Posicion(int pos_x, int pos_y) {
 
 Posicion::Posicion() {
     setXY(0,0);
-    setOcupado(false);
+    setOcupado(true);
 }
 
 void Posicion::printPosicion() {

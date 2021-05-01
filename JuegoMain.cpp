@@ -12,18 +12,18 @@ using namespace std;
 Tablero tablero = Tablero();
 Barco barcos[10];
 bool juegoFinalizado = false;
+int const cantidadDeDisparos = 20;
 
 //Prototipos
-void inicializar();
+void inicializar(); //TODO: revisar las posiciones (no las imprime como ocupadas).
 void disparar(); //TODO: implementar segun disparar.png
 
 //METODO PRINCIPAL
 int main() {
-    inicializar(); //TODO: cambiar if a switch
+    inicializar();
     for (int i = 0; i < 2; ++i) {
         barcos[i].printDeEstado();
     }
-    cout<<"El valor de X es: "<<barcos[0].getPosicion(2).getX()<<endl;
     //disparar();
     return 0;
 }
@@ -38,13 +38,11 @@ int main() {
 void inicializar() {
     for (int i = 0; i < 2; ++i) {
         cout<<"Barco ["<<i<<"]"<<endl;
-
         //Obetenemos la posicion inicial de referencia.
-        cout<<"Ingrese la coordenada de referencia inicial [X ; Y]\n (Ingrese X -> ENTER -> Y -> ENTER)"<<endl;
+        cout<<"Ingrese la coordenada de referencia inicial [X ; Y]"<<endl;
         int x,y;
         cin>>x>>y;
         Posicion posAux = Posicion(x,y);
-
         cout<<"Ingrese una direccion (para completar el barco)\n Pueden ser: [Up:U, Down:D, Left:L, Right:R]"<<endl;
         char direc;
         cin>>direc;
@@ -140,13 +138,64 @@ void inicializar() {
                         }
                         break;
                 }
-                break;
+            break;
         }
     }
-
 }
-
+/*
+ * Toma una posicion de la cola de posiciones.
+ * La analiza y ve si sigue ahi cerca o se va a otra.
+ */
 void disparar(){
+    int contador=0;
+        while(!juegoFinalizado){
+            int ranX = 1 + rand() % (10-1+1);
+            int ranY = 1 + rand() % (10-1+1);
+            Posicion posAux = Posicion();
+            posAux.siguiente->setXY(ranX, ranY);
+            Cola* colaPosiciones = new Cola(posAux.siguiente);
 
+            //TODO: anotar los disparos en el tablero.
+            cout<<"Disparo a la posicion: ["<<ranX<<" ; "<<ranY<<" ]"<<endl;
+            cout<<"Fue un acierto? [Agua:a, Averiado:v, Hundido:h]"<<endl;
+            char estado;
+            cin>>estado;
+            if(estado='v'){
+                cout<<"Donde quiere hacer el proximo disparo: [U,D,L,R]"<<endl;
+                char segundo;
+                cin>>segundo;
+                switch (segundo) {
+                    case 'U':
+                        posAux.siguiente->setXY(ranX, ranY+1);
+                        //Cola* colaPosiciones = new Cola(posAux.siguiente);
+                        break;
+                    case 'D':
+                        posAux.siguiente->setXY(ranX, ranY-1);
+                        break;
+                    case 'L':
+                        posAux.siguiente->setXY(ranX-1, ranY);
+                        break;
+                    case 'R':
+                        posAux.siguiente->setXY(ranX+1, ranY);
+                        break;
+                }
+                for (int i = 0; i < 10; ++i) {
+                    //reviso si le pegue a algun barco.
+                    bool flag = false;
+                    for (int j = 0; j < 4; ++j) {
+                        if (barcos[i].getPosicion(j) == posAux){
+
+                        }
+                    }
+                }
+            }else if(estado == 'a'){
+                cout<<"Se intentara otro disparo..."<<endl;
+            }
+            //Si no fue un acierto, cuento el disparo en el contado y vuelvo a ingresar al while.
+            contador++;
+            if(contador == 20){
+                juegoFinalizado = true;
+            }
+        }
+        cout<<"GAME OVER"<<endl;
 }
-//TODO: para sumar puntos revisar los overflow del tablero.
