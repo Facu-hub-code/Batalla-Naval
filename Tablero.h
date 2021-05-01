@@ -9,9 +9,6 @@ class Tablero {
 public:
     Tablero();//constructor por defecto
 private:
-    Posicion casilleros[10][10];
     bool disparosAnotados[10][10];
 };
-
-
 #endif //CODIGO_TABLERO_H

@@ -10,7 +10,6 @@
 Tablero::Tablero() {
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
-            casilleros[i][j] = Posicion();
             disparosAnotados[i][j] = false;
         }
     }

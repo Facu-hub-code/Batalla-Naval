@@ -12,12 +12,9 @@ using namespace std;
 Tablero tablero = Tablero();
 Barco barcos[10];
 bool juegoFinalizado = false;
-int commit=0;
 
 //Prototipos
-void ini();
 void inicializar();
-
 void disparar();
 
 //METODO PRINCIPAL

@@ -5,6 +5,11 @@
 #include "Barco.h"
 #include <iostream>
 using namespace std;
+
+/*
+ * Constructor con parametros de barco
+ * @param: posInicial,t con la posicion inicial de referencia y el tipo de barco ya podemos construirlo.
+*/
 Barco::Barco(Posicion posInicial, char t) {
     posBarco[0] = posInicial;
     estado = 'i';
@@ -16,6 +21,7 @@ Barco::Barco() {
     estado = 'i';
 }
 
+//Retorna la posicion indicada en el indice (los barcos tienen 4 posiciones).
 Posicion Barco::getPosicion(int indice) {
     return posBarco[indice];
 }
@@ -72,11 +78,11 @@ void Barco::printDeEstado() {
             estadoS = "Intacto";
             break;
     }
-
     cout<<"El Barco "<<tipoS<<" se encuentra "<<estadoS<<" en las posiciones:"<<endl;
     for (int i = 0; i < 4; ++i) {
         Posicion aux = getPosicion(i);
-        aux.printPosicion();
+        if(aux.getOcupado()) {
+            aux.printPosicion();
+        }
     }
 }
-

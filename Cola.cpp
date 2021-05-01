@@ -5,16 +5,9 @@
 #include "Cola.h"
 #include <iostream>
 using namespace std;
-/*
- * Metodo para insertar Pilas.
- */
-void Cola::AgregarPila(int posX, int posY){
 
+//Constructor de la Cola.
+Cola::Cola(Posicion* pos) {
+    primero = pos;
 }
-
-/*
- * Metodo para obtener Nodos = Aldeanos a la Lista.
-*/
-
-
-void Cola::RetirarPila() {}
+//TODO: implemetar push y pop

@@ -8,15 +8,14 @@
 
 class Cola {
 public:
-    Cola(){}
-    void AgregarPila(int posX, int posY);
-    void RetirarPila();
+    Cola();
+    Cola(Posicion*);
+    void AgregarPosicion(int posX, int posY);
+    //void RetirarPila();
     void leerLista();
 private:
-    Pila* primero = NULL;
-    Pila* final= NULL;
-
+    Posicion* primero = NULL;
+    Posicion* final= NULL;
 };
-
 
 #endif //CODIGO_COLADEPILAS_H
