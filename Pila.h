@@ -16,7 +16,7 @@ public:
     void add(int, int, bool ); //sumar nodos a la lista
     void borrar();
     bool esvacia(void);
-
+    void setComienzo(Posicion*);
     Posicion *getComienzo() const;
 
 };

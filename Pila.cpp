@@ -25,3 +25,7 @@ bool Pila::esvacia(){
 Posicion *Pila::getComienzo() const {
     return comienzo;
 }
+
+void Pila::setComienzo(Posicion* comien){
+    comienzo = comien;
+}
