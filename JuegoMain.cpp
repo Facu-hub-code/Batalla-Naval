@@ -15,11 +15,11 @@ bool juegoFinalizado = false;
 
 //Prototipos
 void inicializar();
-void disparar();
+void disparar(); //TODO: implementar segun disparar.png
 
 //METODO PRINCIPAL
 int main() {
-    inicializar();
+    inicializar(); //TODO: cambiar if a switch
     for (int i = 0; i < 2; ++i) {
         barcos[i].printDeEstado();
     }
@@ -52,121 +52,99 @@ void inicializar() {
         cout<<"Ingrese el tipo de Barco: [C:Crucero, D:Destructor, S:Submarino, c:Canonero]"<<endl;
         char tipo;
         cin>>tipo;
-        Barco barAux(posAux, tipo);// bar
+        Barco barAux(posAux, tipo);
         barcos[i] = barAux;
 
         //Decodificar tipo y Direccion.
-        if(tipo=='D') {
-            if(direc=='U') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setY(posAux.getY() + 1);
-                    barcos[i].setPos(posAux, j + 1);
+        switch(tipo) {
+            case 'D': //DESTRUCTOR
+                switch (direc) {
+                    case 'U'://UP
+                        for (int j = 0; j < 3; ++j) {
+                            posAux.setY(posAux.getY() + 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'D'://DOWN
+                        for (int j = 0; j < 3; ++j) {
+                            posAux.setY(posAux.getY() - 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'L'://LEFT
+                        for (int j = 0; j < 3; ++j) {
+                            posAux.setX(posAux.getX() - 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'R'://RIGHT
+                        for (int j = 0; j < 3; ++j) {
+                            posAux.setX(posAux.getX() + 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
                 }
-            }
-            if(direc=='D') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setY(posAux.getY() - 1);
-                    barcos[i].setPos(posAux, j + 1);
+                break;
+            case 'C'://CRUCERO
+                switch (direc) {
+                    case 'U'://UP
+                        for (int j = 0; j < 2; ++j) {
+                            posAux.setY(posAux.getY() + 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'D'://DOWN
+                        for (int j = 0; j < 2; ++j) {
+                            posAux.setY(posAux.getY() - 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'L'://LEFT
+                        for (int j = 0; j < 2; ++j) {
+                            posAux.setX(posAux.getX() - 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'R'://RIGHT
+                        for (int j = 0; j < 2; ++j) {
+                            posAux.setX(posAux.getX() + 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
                 }
-            }
-            if(direc=='L') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setX(posAux.getX() - 1);
-                    barcos[i].setPos(posAux, j + 1);
+                break;
+            case 'c':
+                switch (direc) {
+                    case 'U': //UP
+                        for (int j = 0; j < 1; ++j) {
+                            posAux.setY(posAux.getY() + 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'D'://DOWN
+                        for (int j = 0; j < 1; ++j) {
+                            posAux.setY(posAux.getY() - 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'L'://LEFT
+                        for (int j = 0; j < 1; ++j) {
+                            posAux.setX(posAux.getX() - 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
+                    case 'R': //RIGHT
+                        for (int j = 0; j < 1; ++j) {
+                            posAux.setX(posAux.getX() + 1);
+                            barcos[i].setPos(posAux, j + 1);
+                        }
+                        break;
                 }
-            }
-            if(direc=='R') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setX(posAux.getX() + 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            else{
-                    cout<<"Se ingreso una direccion invalida."<<endl;
-
-            }
-        }
-
-
-        if(tipo=='C'){
-            if(direc=='U') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setY(posAux.getY() + 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            if(direc=='D') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setY(posAux.getY() - 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            if(direc=='L') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setX(posAux.getX() - 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            if(direc=='R') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setX(posAux.getX() + 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-        if(tipo=='c'){
-            if(direc=='U') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setY(posAux.getY() + 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            if(direc=='D') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setY(posAux.getY() - 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            if(direc=='L') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setX(posAux.getX() - 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            if(direc=='R') {
-
-                for (int j = 0; j < 3; ++j) {
-                    posAux.setX(posAux.getX() + 1);
-                    barcos[i].setPos(posAux, j + 1);
-                }
-            }
-            else{
-                cout<<"Se ingreso una direccion invalida."<<endl;
-
-            }
-        }
-        else{
-                cout<<"Se ingreso una direccion invalida."<<endl;
-
-            }
-        }
-
-
-
-
-
+                break;
         }
     }
+
+}
 
 void disparar(){
 
