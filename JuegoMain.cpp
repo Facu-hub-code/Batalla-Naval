@@ -15,8 +15,8 @@ bool juegoFinalizado = false;
 int const cantidadDeDisparos = 20;
 
 //Prototipos
-void inicializar(); //TODO: revisar las posiciones (no las imprime como ocupadas).
-void disparar(); //TODO: implementar segun disparar.png
+void inicializar();
+void disparar();
 
 //METODO PRINCIPAL
 int main() {
@@ -183,9 +183,7 @@ void disparar(){
                     //reviso si le pegue a algun barco.
                     bool flag = false;
                     for (int j = 0; j < 4; ++j) {
-                        if (barcos[i].getPosicion(j) == posAux){
-
-                        }
+                        //if(barcos[i].getPosicion(j) == posAux){}
                     }
                 }
             }else if(estado == 'a'){

@@ -23,7 +23,8 @@ Barco::Barco() {
 
 //Retorna la posicion indicada en el indice (los barcos tienen 4 posiciones).
 Posicion Barco::getPosicion(int indice) {
-    return posBarco[indice];
+    Posicion aux = posBarco[indice];
+    return aux;
 }
 
 char Barco::getTipo() const {
