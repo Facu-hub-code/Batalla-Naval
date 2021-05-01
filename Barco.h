@@ -9,6 +9,8 @@
 class Barco {
 public:
     Barco();
+
+    Barco(Posicion posBarco[4]);
     Barco(Posicion posInicial, char tipo);
     Posicion getPosicion(int );
     char getTipo() const;

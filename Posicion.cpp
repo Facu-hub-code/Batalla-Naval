@@ -6,14 +6,14 @@
 #include <iostream>
 using namespace std;
 
-Posicion::Posicion(int pos_x, int pos_y) {
+Posicion::Posicion(int pos_x, int pos_y, bool ocupado) {
     setXY(pos_x, pos_y);
-    setOcupado(true);
+    setOcupado(ocupado);
 }
 
 Posicion::Posicion() {
     setXY(0,0);
-    setOcupado(true);
+    setOcupado(false);
 }
 
 void Posicion::printPosicion() {

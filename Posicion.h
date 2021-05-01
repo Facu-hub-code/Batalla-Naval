@@ -13,7 +13,7 @@ private:
     bool ocupado;
 public:
     //Constructores
-    Posicion(int x, int y);
+    Posicion(int , int , bool);
     Posicion();
 
     //Puntero a la siguiente posicion.
@@ -27,7 +27,7 @@ public:
     void setX(int cx) {x=cx;}
     void setY(int cy) {y=cy;}
     void setXY(int cx, int cy) {x = cx;y = cy;}
-    void setOcupado(bool ocupado) {ocupado=ocupado;}
+    void setOcupado(bool o) {ocupado=o;}
 
     //Print
     void printPosicion();

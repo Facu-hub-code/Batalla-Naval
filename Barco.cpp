@@ -6,6 +6,12 @@
 #include <iostream>
 using namespace std;
 
+
+Barco::Barco() {
+    posBarco[0] =  Posicion();
+    estado = 'i';
+}
+
 /*
  * Constructor con parametros de barco
  * @param: posInicial,t con la posicion inicial de referencia y el tipo de barco ya podemos construirlo.
@@ -16,15 +22,11 @@ Barco::Barco(Posicion posInicial, char t) {
     tipo = t;
 }
 
-Barco::Barco() {
-    posBarco[0] =  Posicion(0,0);
-    estado = 'i';
-}
+
 
 //Retorna la posicion indicada en el indice (los barcos tienen 4 posiciones).
 Posicion Barco::getPosicion(int indice) {
-    Posicion aux = posBarco[indice];
-    return aux;
+    return posBarco[indice];
 }
 
 char Barco::getTipo() const {
@@ -39,19 +41,19 @@ void Barco::setPos(Posicion pos, int a){
     posBarco[a]=pos;
 }
 
-void Barco::setTipo(char tipo) {
-    Barco::tipo = tipo;
+void Barco::setTipo(char t) {
+    tipo = t;
 }
 
-void Barco::setEstado(char estado) {
-    Barco::estado = estado;
+void Barco::setEstado(char e) {
+    estado = e;
 }
 
 void Barco::printDeEstado() {
     //Recupero el tipo del barco.
     char tipoC = getTipo();
     string tipoS;
-    switch (tipoC) {
+    switch (tipoC) { //TODO: no esta tomando el tipo.
         case 'D':
             tipoS = "Destructor";
             break;
