@@ -7,7 +7,8 @@
 
 class Tablero {
 public:
-    Tablero();//constructor por defecto
+    Tablero();//Constructor por defecto
+    void setDisparo(int, int);
     void printDisparos();
 private:
     bool disparosAnotados[10][10];

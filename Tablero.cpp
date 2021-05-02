@@ -7,7 +7,7 @@
 using namespace std;
 
 /*
- * Inicializo el tablero vacio.
+ * Inicializo el tablero sin disparos (todo en false)
  */
 Tablero::Tablero() {
     for (int i = 0; i < 10; ++i) {
@@ -15,6 +15,11 @@ Tablero::Tablero() {
             disparosAnotados[i][j] = false;
         }
     }
+}
+
+void Tablero::setDisparo(int fila, int columna) {
+    //TODO: revisar cual es la fila y cual es la columna
+    disparosAnotados[columna][fila] = true;
 }
 
 void Tablero::printDisparos() {
