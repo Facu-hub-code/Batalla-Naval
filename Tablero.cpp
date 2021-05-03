@@ -18,8 +18,7 @@ Tablero::Tablero() {
 }
 
 void Tablero::setDisparo(int fila, int columna) {
-    //TODO: revisar cual es la fila y cual es la columna
-    disparosAnotados[columna][fila] = true;
+    disparosAnotados[fila][columna] = true;
 }
 
 void Tablero::printDisparos() {
