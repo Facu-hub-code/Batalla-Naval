@@ -11,20 +11,24 @@ using namespace std;
 
 
 Tablero tablero = Tablero(); //Se guardan los disparos
-Barco barcos[9]; //se ejecuta el constructor por defecto de cada barco.
+Barco barcos[10]; //se ejecuta el constructor por defecto de cada barco.
+Pila pilaPosiciones;
+
+char estado;
 bool juegoFinalizado = false;
 int const cantDisparosMAX = 20;
 int const cantidadDeBarcos = 10;
-Pila pilaPosiciones = Pila();
-
+int contadorDisparos;
 //Prototipos
 void inicializarPorConsola();
 void inicializarPorDefecto();
 void jugar();
-void disparar();
-//TODO: contemplar v,a,a,a -> saltar a otra pila
-//TODO: contempalr si es ej horizontal, y [4,4]v ; [3,4]v ; [2,4]a ir directamente a [5,4]v
-//TODO: si todavia no lo hundio apilar [6,4]
+void primerDisparo();
+void segundoDisparo();
+void terceroDisparo();
+void cuartoDisparo();
+void quintoDisparo();
+
 
 int main() {
     //Guardar los barcos en el juego y printearlos
@@ -110,23 +114,12 @@ void inicializarPorDefecto(){
  * Dependiendo de la respuesta del usuario calcula el siguiente disparo.
  */
 void jugar() {
-    int contador = 0;
+    contadorDisparos = 0;
     while (!juegoFinalizado) {
-        //Coordenadas de la nueva posicion a disparar (primera de la pila).
-        int ranX = 1 + rand() % (10 - 1 + 1);
-        int ranY = 1 + rand() % (10 - 1 + 1);
-        Posicion* posAux = new Posicion(ranX, ranY, false);
-        //pilaPosiciones.setComienzo(posAux); //Queda apuntado a la primera pos
-        pilaPosiciones.add(ranX, ranY, false);
-        Cola *colaPosiciones = new Cola(posAux);
 
-        cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
-        tablero.setDisparo(ranX,ranY);
-        disparar();
+        primerDisparo();
 
-        //Si no fue un acierto, cuento el disparo en el contado y vuelvo a ingresar al while.
-        contador++;
-        if (contador == cantDisparosMAX) {
+        if (contadorDisparos == cantDisparosMAX) {
             juegoFinalizado = true;
         } else {
             cout << "Se intentara otro disparo..." << endl;
@@ -135,79 +128,187 @@ void jugar() {
     cout << "GAME OVER" << endl;
 }
 
-
-void disparar(){
-    int disparosSeguidosAcertados = 0;
-    cout<<"Fue un acierto? [Agua:a, Averiado:v, Hundido:h]"<<endl;
-    char estado;
+/*
+ * Realiza el primer disparo a una posicion Random.
+ */
+void primerDisparo() {
+    //Tomo las coordenadaas.
+    int ranX = 1 + rand() % (10 - 1 + 1);
+    int ranY = 1 + rand() % (10 - 1 + 1);
+    Posicion *posAux = new Posicion(ranX, ranY, false);
+    Cola *colaPosiciones = new Cola(posAux);
+    //Apilo la primer POS a disparaar
+    pilaPosiciones = Pila();
+    pilaPosiciones.add(ranX, ranY, false);
+    //Imprimo
+    cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
+    tablero.setDisparo(ranX, ranY);
+    contadorDisparos++;
+    //Pregunto
+    cout << "Fue un acierto? [Agua:a, Averiado:v, Hundido:h]" << endl;
     cin >> estado;
-    if(estado == 'v'){
-        disparosSeguidosAcertados++;
-        cout<<"\tCuidado..."<<endl;
-        //Recupero las coordenadas del primer disparo acertado de la Pila actual.
-        int ranX = pilaPosiciones.getComienzo()->getX();
-        int ranY = pilaPosiciones.getComienzo()->getY();
+    //Evaluo estado
+    switch (estado) {
+        case 'a':
+            primerDisparo();
+            break;
+        case 'h':
+            primerDisparo();
+            break;
+        case 'v':
 
-        pilaPosiciones.borrar(); //Borro la cabeza
-
-        //Apilo posiciones alrededor del priemr disppilaPosiciones = {Pila} aro acertado de la Pila actual.
-        pilaPosiciones.add(ranX,ranY+1, false);
-        pilaPosiciones.add(ranX,ranY-1, false);
-        pilaPosiciones.add(ranX+1,ranY, false);
-        pilaPosiciones.add(ranX-1,ranY, false); //TOPE - Comienzo de la PILA
-
-        while(estado == 'v'){ //Mientras este averiado, disparo a los alrededores.
-            //TODO:IMplementar getSiguiente en clase PILA
-            int xAux,yAux;
-            xAux = pilaPosiciones.getComienzo()->getX();
-            yAux = pilaPosiciones.getComienzo()->getY();
-            cout << "Disparo a la posicion: [" << xAux<< " ; "<< yAux << " ]" << endl; //Disparo al TOPE de la Pila Actual.
-            tablero.setDisparo(xAux, yAux);
-            cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
-            cin>>estado;
-
-            if(estado == 'h'){
-                cout<<"\tVamos !!!"<<endl;
-            }
-            /*
-             * 4.3)Si es averiado, (caso de barcos grandes), hay que apilar la siguiente posición en la linea del barco,
-             * porque ya se sabe que direccion tiene el barco, y vuelvo a disparar usando la pila actual.
-             */
-            if(estado == 'v'){
-                cout<<"Cuidado..."<<endl;
-                //recupero pos 2do disparo para buscar la direccion [HORIZONTAL VERTICAL] A Apilar.
-                int ranX2 = pilaPosiciones.getComienzo()->getX();
-                int ranY2 = pilaPosiciones.getComienzo()->getY();
-                int direccionX= ranX - ranX2;
-                //Me fijo si esta horizontal
-                switch (direccionX) {
-                    case -1: //Se movio para la Derecha
-                        pilaPosiciones.add(xAux+1,ranY, false);
-                        break;
-                    case 1: //Se movio para la Izquierda.
-                        pilaPosiciones.add(xAux-1,ranY, false); //Nuevo TOPE LEFT
-                        break;
-                    case 0: //Se movio en vertical
-                        int direccionY = ranY-ranY2;
-                        if(direccionY == -1){ //Se movio para Arriba
-                            pilaPosiciones.add(ranX,yAux+1, false);
-                        }if(direccionY == 1){ //Se movio para Abajo
-                            pilaPosiciones.add(ranX,yAux-1, false);
-                        }
-                        break;
-                    defoult : //TODO implementar destructor
-                        cout<<"";
-                        break;
-                }
-            }if(estado == 'a'){ //4.1)Si es agua, sigo con el proximo de la pila.
-                cout<<"Suerte la proxima!"<<endl;
-                pilaPosiciones.borrar(); //borro la Posicion cabeza.
-                estado = 'v';
-            }
-        }
+            pilaPosiciones.add(ranX,ranY+1, false); //Arriba
+            pilaPosiciones.add(ranX,ranY-1, false); //Abajo
+            pilaPosiciones.add(ranX+1,ranY, false); // Derecha
+            pilaPosiciones.add(ranX-1,ranY, false); //TOPE - Comienzo de la PILA - Izquierda
+            segundoDisparo();
+            break;
     }
-    if(estado == 'h'){
-        cout<<"SUBMARINO HUNDIDO"<<endl;
+}
+
+/*
+ * Realiza el segundo disparo, con conocimientos de un primer acierto
+ */
+void segundoDisparo(){
+    //Imprimo
+    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+    //Pregunto
+    cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+    cin>>estado;
+    //Evaluo estado
+    switch (estado) {
+        case 'a':
+            pilaPosiciones.borrar();
+            segundoDisparo();
+            break;
+        case 'h':
+            primerDisparo();
+            break;
+        case 'v':
+            //pilaPosiciones.borrar();
+            terceroDisparo();
+    }
+}
+
+/*
+ * Realiza el tercer disparo, con conocimiento del primero y del segundo
+ */
+
+void terceroDisparo(){
+    //recupero coordenadas del primer disparo
+    int ranX=0;
+    int ranY=0;
+    //recupero la 2da pos para buscar la direccion [HORIZONTAL VERTICAL] A Apilar.
+    int ranX2 = pilaPosiciones.getComienzo()->getX();
+    int ranY2 = pilaPosiciones.getComienzo()->getY();
+    //Me fijo si esta horizontal
+    int direccionX= ranX - ranX2;
+    switch (direccionX) {
+        case -1: //Se movio para la Derecha
+            pilaPosiciones.add(ranX2+1,ranY2, false); //apilo con la pos movida a la derecha
+            cuartoDisparo();
+            break;
+        case 1: //Se movio para la Izquierda.
+            pilaPosiciones.add(ranX2-1,ranY2, false); //apilo con la pos movida a la izquierda
+            cuartoDisparo();
+            break;
+        case 0: //Se movio en vertical
+            int direccionY = ranY-ranY2;
+            if(direccionY == -1){
+                pilaPosiciones.add(ranX2,ranY2+1, false);
+                cuartoDisparo();
+            }if(direccionY == 1){
+        pilaPosiciones.add(ranX2,ranY2-1, false);
+        cuartoDisparo();
+    }
+            break;
+    }
+}
+
+/*
+ * Cuarto disparo, puede venir de un tercer averio, o de un segundo averio y agua
+ */
+void cuartoDisparo(){
+    //Imprimo
+    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+    //Pregunto
+    cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+    cin>>estado;
+
+    //recupero la 3ra pos para buscar la direccion
+    int ranX3 = pilaPosiciones.getComienzo()->getX();
+    int ranY3 = pilaPosiciones.getComienzo()->getY();
+    //recupero la 2da pos
+    pilaPosiciones.borrar();
+    int ranX2 = pilaPosiciones.getComienzo()->getX();
+    int ranY2 = pilaPosiciones.getComienzo()->getY();
+
+    //Me fijo si esta horizontal
+    int direccionX= ranX2 - ranX3;
+    switch (direccionX) {
+        case -1: //Se movio para la Derecha
+            pilaPosiciones.add(ranX3+1,ranY3, false); //apilo con la pos movida a la derecha
+            quintoDisparo();
+            break;
+        case 1: //Se movio para la Izquierda.
+            pilaPosiciones.add(ranX3-1,ranY3, false); //apilo con la pos movida a la izquierda
+            quintoDisparo();
+            break;
+        case 0: //Se movio en vertical
+            int direccionY = ranY2-ranY3;
+            if(direccionY == -1){
+                pilaPosiciones.add(ranX3,ranY3+1, false);
+                quintoDisparo();
+            }if(direccionY == 1){
+        pilaPosiciones.add(ranX3,ranY3-1, false);
+        quintoDisparo();
+    }
+            break;
+    }
+}
+
+/*
+ * Quinto disparo
+ */
+void quintoDisparo(){
+    //Imprimo
+    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+    //Pregunto
+    cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+    cin>>estado;
+
+    //recupero la 3ra pos para buscar la direccion
+    int ranX3 = pilaPosiciones.getComienzo()->getX();
+    int ranY3 = pilaPosiciones.getComienzo()->getY();
+    //recupero la 2da pos
+    pilaPosiciones.borrar();
+    int ranX2 = pilaPosiciones.getComienzo()->getX();
+    int ranY2 = pilaPosiciones.getComienzo()->getY();
+
+    //Me fijo si esta horizontal
+    int direccionX= ranX2 - ranX3;
+    switch (direccionX) {
+        case -1: //Se movio para la Derecha
+            pilaPosiciones.add(ranX3+1,ranY3, false); //apilo con la pos movida a la derecha
+            quintoDisparo();
+            break;
+        case 1: //Se movio para la Izquierda.
+            pilaPosiciones.add(ranX3-1,ranY3, false); //apilo con la pos movida a la izquierda
+            quintoDisparo();
+            break;
+        case 0: //Se movio en vertical
+            int direccionY = ranY2-ranY3;
+            if(direccionY == -1){
+                pilaPosiciones.add(ranX3,ranY3+1, false);
+                quintoDisparo();
+            }if(direccionY == 1){
+        pilaPosiciones.add(ranX3,ranY3-1, false);
+        quintoDisparo();
+    }
+            break;
     }
 }
 /*
@@ -323,3 +424,4 @@ void inicializarPorConsola() {
         }
     }
 }
+
