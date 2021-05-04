@@ -113,7 +113,6 @@ void inicializarPorDefecto(){
  * Dependiendo de la respuesta del usuario calcula el siguiente disparo.
  */
 void jugar() {
-    contadorDisparos = 0;
     while (!juegoFinalizado) {
 
         primerDisparo();
@@ -138,7 +137,6 @@ void primerDisparo() {
     Cola *colaPosiciones = new Cola(posAux);
     //Apilo la primer POS a disparaar
     pilaPosiciones = Pila(posAux);
-    //pilaPosiciones.add(ranX, ranY, false);
     //Imprimo
     cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
     tablero.setDisparo(ranX, ranY);
@@ -149,9 +147,11 @@ void primerDisparo() {
     //Evaluo estado
     switch (estado) {
         case 'a':
+            cout<<"-.-"<<endl;
             primerDisparo();
             break;
         case 'h':
+            cout<<"Submarino hundido"<<endl;
             primerDisparo();
             break;
         case 'v':
