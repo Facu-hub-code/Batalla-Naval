@@ -7,7 +7,7 @@
 using namespace std;
 
 /*
- * Inicializo el tablero sin disparos (todo en false)
+ * Inicializo el tablero sin disparos
  */
 Tablero::Tablero() {
     for (int i = 0; i < 10; ++i) {

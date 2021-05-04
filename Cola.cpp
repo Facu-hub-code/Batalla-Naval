@@ -10,4 +10,3 @@ using namespace std;
 Cola::Cola(Posicion* pos) {
     primero = pos;
 }
-//TODO: implemetar push y pop

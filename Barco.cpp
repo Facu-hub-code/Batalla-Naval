@@ -53,7 +53,7 @@ void Barco::printDeEstado() {
     //Recupero el tipo del barco.
     char tipoC = getTipo();
     string tipoS;
-    switch (tipoC) { //TODO: no esta tomando el tipo.
+    switch (tipoC) {
         case 'D':
             tipoS = "Destructor";
             break;

@@ -9,16 +9,16 @@
 #include "Pila.h"
 using namespace std;
 
-
-Tablero tablero = Tablero(); //Se guardan los disparos
-Barco barcos[10]; //se ejecuta el constructor por defecto de cada barco.
-Pila pilaPosiciones;
-
 char estado;
 bool juegoFinalizado = false;
 int const cantDisparosMAX = 20;
 int const cantidadDeBarcos = 10;
 int contadorDisparos;
+
+Tablero tablero = Tablero(); //Se guardan los disparos
+Barco barcos[cantidadDeBarcos]; //se ejecuta el constructor por defecto de cada barco.
+Pila pilaPosiciones;
+
 //Prototipos
 void inicializarPorConsola();
 void inicializarPorDefecto();
@@ -203,7 +203,7 @@ void terceroDisparo(){
     bool flag= false;
     while(!flag){
         if(pilaPosiciones.getComienzo()->siguiente != NULL){
-            pilaPosiciones.setComienzo(pilaPosiciones.getComienzo()->siguiente); //TODO revisar funcionamiento
+            pilaPosiciones.setComienzo(pilaPosiciones.getComienzo()->siguiente);
             flag = false;
         }else{
             ranX1 = pilaPosiciones.getComienzo()->getX();
@@ -227,7 +227,23 @@ void terceroDisparo(){
                     cout<<"Crucero Hundido"<<endl;
                     primerDisparo();
                     break;
-                case 'a': //TODO: implementar otro extremo.
+                case 'a': //CASO ESPECIAL
+                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-2, pilaPosiciones.getComienzo()->getY(), false);
+                    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                    contadorDisparos++;
+                    cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+                    cin>>estado;
+                    if(estado == 'h'){cout<<"Crucero Hundido"<<endl;primerDisparo();}
+                    if(estado == 'v'){
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-1, pilaPosiciones.getComienzo()->getY(), false);
+                        cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                        tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                        contadorDisparos++;
+                        cout<<"Destructor Hundido"<<endl;primerDisparo();
+                    }
+                    break;
+
                 case 'v':
                     cuartoDisparo();
             }
@@ -247,7 +263,22 @@ void terceroDisparo(){
                     cout<<"Crucero Hundido"<<endl;
                     primerDisparo();
                     break;
-                case 'a': //TODO: implementar otro extremo.
+                case 'a':
+                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+2, pilaPosiciones.getComienzo()->getY(), false);
+                    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                    contadorDisparos++;
+                    cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+                    cin>>estado;
+                    if(estado == 'h'){cout<<"Crucero Hundido"<<endl;primerDisparo();}
+                    if(estado == 'v'){
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+1, pilaPosiciones.getComienzo()->getY(), false);
+                        cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                        tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                        contadorDisparos++;
+                        cout<<"Destructor Hundido"<<endl;primerDisparo();
+                    }
+                    break;
                 case 'v':
                     cuartoDisparo();
             }
@@ -268,7 +299,21 @@ void terceroDisparo(){
                         cout<<"Crucero Hundido"<<endl;
                         primerDisparo();
                         break;
-                    case 'a': //TODO: implementar otro extremo.
+                    case 'a':
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()-2, false);
+                        cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                        tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                        contadorDisparos++;
+                        cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+                        cin>>estado;
+                        if(estado == 'h'){cout<<"Crucero Hundido"<<endl;primerDisparo();}
+                        if(estado == 'v'){
+                            pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-1, pilaPosiciones.getComienzo()->getY(), false);
+                            cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                            tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                            contadorDisparos++;
+                            cout<<"Destructor Hundido"<<endl;primerDisparo();
+                        }
                         break;
                     case 'v':
                         cuartoDisparo();
@@ -289,7 +334,21 @@ void terceroDisparo(){
                         cout<<"Crucero Hundido"<<endl;
                         primerDisparo();
                         break;
-                    case 'a': //TODO: implementar otro extremo.
+                    case 'a':
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()+2, false);
+                        cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                        tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                        contadorDisparos++;
+                        cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+                        cin>>estado;
+                        if(estado == 'h'){cout<<"Crucero Hundido"<<endl;primerDisparo();}
+                        if(estado == 'v'){
+                            pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+1, pilaPosiciones.getComienzo()->getY(), false);
+                            cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                            tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                            contadorDisparos++;
+                            cout<<"Destructor Hundido"<<endl;primerDisparo();
+                        }
                         break;
                     case 'v':
                         cuartoDisparo();
@@ -301,7 +360,7 @@ void terceroDisparo(){
 }
 
 /*
- * Cuarto disparo, puede venir de un tercer averio, o de un segundo averio y agua
+ * Cuarto disparo
  */
 void cuartoDisparo(){
     //recupero la 3ra pos para buscar la direccion [HORIZONTAL VERTICAL] A Apilar.
@@ -329,7 +388,11 @@ void cuartoDisparo(){
                     primerDisparo();
                     break;
                 case 'a':
-
+                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-3, pilaPosiciones.getComienzo()->getY(), false);
+                    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                    contadorDisparos++;
+                    cout<<"Destructor Hundido"<<endl;primerDisparo();
                 case 'v':
                     cout<<"Imposible"<<endl;estado = 'h';
                     break;
@@ -350,7 +413,12 @@ void cuartoDisparo(){
                     cout<<"Destructor Hundido"<<endl;
                     primerDisparo();
                     break;
-                case 'a': //TODO: implementar otro extremo.
+                case 'a':
+                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+3, pilaPosiciones.getComienzo()->getY(), false);
+                    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                    contadorDisparos++;
+                    cout<<"Destructor Hundido"<<endl;primerDisparo();
                 case 'v':
                     cout<<"Imposible"<<endl;estado = 'h';
                     break;
@@ -372,7 +440,12 @@ void cuartoDisparo(){
                         cout<<"Destructor Hundido"<<endl;
                         primerDisparo();
                         break;
-                    case 'a': //TODO: implementar otro extremo.
+                    case 'a':
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()-3, false);
+                        cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                        tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                        contadorDisparos++;
+                        cout<<"Destructor Hundido"<<endl;primerDisparo();
                         break;
                     case 'v':
                         cout<<"Imposible"<<endl;primerDisparo();
@@ -393,7 +466,12 @@ void cuartoDisparo(){
                         cout<<"Destructor Hundido"<<endl;
                         primerDisparo();
                         break;
-                    case 'a': //TODO: implementar otro extremo.
+                    case 'a':
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()+3, false);
+                        cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
+                        tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
+                        contadorDisparos++;
+                        cout<<"Destructor Hundido"<<endl;primerDisparo();
                         break;
                     case 'v':
                         cout<<"imposible"<<endl;primerDisparo();
@@ -404,48 +482,6 @@ void cuartoDisparo(){
     }
 }
 
-/*
- * Quinto disparo
- */
-void quintoDisparo(){
-    //Imprimo
-    cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
-    tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
-    //Pregunto
-    cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
-    cin>>estado;
-
-    //recupero la 3ra pos para buscar la direccion
-    int ranX3 = pilaPosiciones.getComienzo()->getX();
-    int ranY3 = pilaPosiciones.getComienzo()->getY();
-    //recupero la 2da pos
-    pilaPosiciones.borrar();
-    int ranX2 = pilaPosiciones.getComienzo()->getX();
-    int ranY2 = pilaPosiciones.getComienzo()->getY();
-
-    //Me fijo si esta horizontal
-    int direccionX= ranX2 - ranX3;
-    switch (direccionX) {
-        case -1: //Se movio para la Derecha
-            pilaPosiciones.add(ranX3+1,ranY3, false); //apilo con la pos movida a la derecha
-            quintoDisparo();
-            break;
-        case 1: //Se movio para la Izquierda.
-            pilaPosiciones.add(ranX3-1,ranY3, false); //apilo con la pos movida a la izquierda
-            quintoDisparo();
-            break;
-        case 0: //Se movio en vertical
-            int direccionY = ranY2-ranY3;
-            if(direccionY == -1){
-                pilaPosiciones.add(ranX3,ranY3+1, false);
-                quintoDisparo();
-            }if(direccionY == 1){
-        pilaPosiciones.add(ranX3,ranY3-1, false);
-        quintoDisparo();
-    }
-            break;
-    }
-}
 /*
  * Este metodo inicializa 10 Barcos pidiendo por consola una POSICION de referencia, una DIRECCION y un TIPO de barco.
  * El algoritmo completa 4 lugares segun sea el tipo (ej el Destructor ocupa 4, y el submarino solo 1).
