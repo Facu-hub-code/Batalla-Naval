@@ -250,6 +250,7 @@ void terceroDisparo(){
             break;
         case 1: //Se movio para la Izquierda.
             //Apilo
+            //TODO revisar cual quiero apilar
             pilaPosiciones.add(ranX2-1,ranY2, false); //apilo con la pos movida a la izquierda
             //Imprimo el 3er disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
