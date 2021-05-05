@@ -10,8 +10,6 @@ public:
     Tablero();//Constructor por defecto
     void setDisparo(int, int);
     void printDisparos();
-
-private:
     bool disparosAnotados[10][10];
 };
 #endif //CODIGO_TABLERO_H

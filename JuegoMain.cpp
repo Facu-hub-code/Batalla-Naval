@@ -8,7 +8,6 @@
 #import "Cola.h"
 #include "Pila.h"
 using namespace std;
-
 char estado;
 bool juegoFinalizado = false;
 int contadorIntentos=0;
@@ -28,9 +27,11 @@ void primerDisparo();
 void segundoDisparo();
 void terceroDisparo();
 void cuartoDisparo();
+void revisarPosicionRepetida();
 
 
 int main() {
+
     //Guardar los barcos en el juego y printearlos
     inicializarPorDefecto();
 
@@ -43,6 +44,23 @@ int main() {
     }
 cout<<"\nSe termino el juego en "<<contadorIntentos<<" intentos"<<endl;
     return 0;
+}
+/*
+ Revisa que no se dispare dos veces a la misma posicion
+ */
+bool revisarPosicionRepetida(int x, int y){
+        bool flag=false;
+    for (int i = 0; i <contadorIntentos ; ++i) {
+        if(tablero.disparosAnotados[x][y]== false){
+            tablero.disparosAnotados[x][y]=true;
+            flag=false;
+        }else {
+            flag=true;
+
+        }
+    }
+    return flag;
+
 }
 
 /*
@@ -157,6 +175,15 @@ void primerDisparo() {
     //Tomo las coordenadaas.
     int ranX = 1 + rand() % (10 - 1 + 1);
     int ranY = 1 + rand() % (10 - 1 + 1);
+
+        //Reviso que no haya disparado previamente a esa posicion.
+        while(revisarPosicionRepetida(ranX,ranY)){
+            ranX = 1 + rand() % (10 - 1 + 1);
+            ranY = 1 + rand() % (10 - 1 + 1);
+        }
+
+
+
     Posicion *posAux = new Posicion(ranX, ranY, false);
     Cola *colaPosiciones = new Cola(posAux);
     //Apilo la primer POS a disparaar
