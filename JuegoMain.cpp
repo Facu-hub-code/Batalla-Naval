@@ -260,7 +260,7 @@ void terceroDisparo(){
             contadorIntentos++;
             tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
 
-            cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:_";
+            cout<<"Ingrese el estado del reciente disparo: [Agua:a, Averiado:v, Hundido:h]:";
             cin>>estado;
 
             switch(estado){
@@ -284,14 +284,13 @@ void terceroDisparo(){
                         cout<<"Crucero Hundido"<<endl;primerDisparo();}
 
                     if(estado == 'v'){
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-1, pilaPosiciones.getComienzo()->getY(), false); //+1?
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-1, pilaPosiciones.getComienzo()->getY(), false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
                         contadorDeBarcosHundidos++;
                         cout<<"Destructor Hundido"<<endl;primerDisparo();
                     }
                     break;
-
                 case 'v':
                     cuartoDisparo();
             }
@@ -300,7 +299,7 @@ void terceroDisparo(){
         case 1: //Se movio para la Izquierda.
             //Apilo
             //TODO revisar cual quiero apilar
-            pilaPosiciones.add(ranX2-1,ranY2, false); //apilo con la pos movida a la izquierda
+            pilaPosiciones.add(ranX2-1,ranY2, false); //apilo (el 3er disparo) con la pos movida a la izquierda (respecto del disparo 2)
             //Imprimo el 3er disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
             contadorIntentos++;
