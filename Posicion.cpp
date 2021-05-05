@@ -16,6 +16,9 @@ Posicion::Posicion() {
     setOcupado(false);
 }
 
-void Posicion::printPosicion() {
-    cout<<"[X = "<<getX()<<" ; "<<getY()<<" ]"<<endl;
+string Posicion::printPosicion() {
+    string cadena="";
+    cadena.append("[ ");cadena.append(to_string(getX()));cadena.append(" ; "); cadena.append(to_string(getY()));cadena.append(" ]");
+
+    return  cadena;
 }

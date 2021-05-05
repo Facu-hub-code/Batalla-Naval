@@ -18,7 +18,8 @@ public:
     void setTipo(char tipo);
     void setEstado(char estado);
 
-    void printDeEstado();
+
+    void printDePos();
 private:
     Posicion posBarco[4];
     char tipo; //[Destructor, Submarino, Canonero, Crucero]

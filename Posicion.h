@@ -5,6 +5,8 @@
 #ifndef CODIGO_POSICION_H
 #define CODIGO_POSICION_H
 #include <iostream>
+#include <string.h>
+using namespace std;
 
 class Posicion {
 
@@ -31,7 +33,7 @@ public:
     void setOcupado(bool o) {ocupado=o;}
 
     //Print
-    void printPosicion();
+    string printPosicion();
 
     bool es_vacio() { return siguiente == NULL; }
 };

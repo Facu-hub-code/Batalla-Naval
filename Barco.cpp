@@ -49,43 +49,34 @@ void Barco::setEstado(char e) {
     estado = e;
 }
 
-void Barco::printDeEstado() {
+void Barco::printDePos() {
     //Recupero el tipo del barco.
     char tipoC = getTipo();
-    string tipoS;
     switch (tipoC) {
         case 'D':
-            tipoS = "Destructor";
+            cout<<"El destructor se encuentra hundido en: ";
+
             break;
         case 'C':
-            tipoS = "Crucero";
+            cout<<"El crucero se encuentra hundido en: ";
+
             break;
         case 'c':
-            tipoS = "Canonero";
+            cout<<"El canonero se encuentra hundido en: ";
+
             break;
         case 'S':
-            tipoS = "Submarino";
+            cout<<"El submarino se encuentra hundido en: ";
+
             break;
     }
-    //Recupero el estado del barco.
-    char estadoC = getEstado();
-    string estadoS;
-    switch (estadoC) {
-        case 'a':
-            estadoS = "Averiado";
-            break;
-        case 'h':
-            estadoS = "Hundido";
-            break;
-        case 'i':
-            estadoS = "Intacto";
-            break;
-    }
-    cout<<"El Barco "<<tipoS<<" se encuentra "<<estadoS<<" en las posiciones:"<<endl;
     for (int i = 0; i < 4; ++i) {
         Posicion aux = getPosicion(i);
         if(aux.getOcupado()) {
-            aux.printPosicion();
+            cout<<aux.printPosicion()<<" ; ";
+
+
         }
     }
+    cout<<endl;
 }
