@@ -189,6 +189,7 @@ void primerDisparo() {
     //Apilo la primer POS a disparaar
     pilaPosiciones = Pila(posAux);
     //Imprimo
+    //TODO aaa es para comitear este TODO
     cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
     contadorIntentos++;
     tablero.setDisparo(ranX, ranY);
