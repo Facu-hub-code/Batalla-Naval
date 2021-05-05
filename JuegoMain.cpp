@@ -378,7 +378,7 @@ void cuartoDisparo(){
     //Me fijo si esta horizontal
     int direccionX= ranX2 - ranX3;
     switch (direccionX) {
-        case -1: //Se movio para la Derecha
+        case -2: //Se movio para la Derecha
             pilaPosiciones.add(ranX3+1,ranY3, false); //apilo con la pos movida a la derecha
             //Imprimo el 4to disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
@@ -403,7 +403,7 @@ void cuartoDisparo(){
                     break;
             }
             break;
-        case 1: //Se movio para la Izquierda.
+        case 2: //Se movio para la Izquierda.
             //Apilo
             pilaPosiciones.add(ranX3-1,ranY3, false); //apilo con la pos movida a la izquierda
             //Imprimo el 4to disparo
@@ -431,7 +431,7 @@ void cuartoDisparo(){
             break;
         case 0: //Se movio en vertical
             int direccionY = ranY2-ranY3;
-            if(direccionY == -1){
+            if(direccionY == -2){
                 pilaPosiciones.add(ranX3,ranY3+1, false);
                 //Imprimo el disparo
                 cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
@@ -457,7 +457,7 @@ void cuartoDisparo(){
                         break;
                 }
             }
-            if(direccionY == 1){
+            if(direccionY == 2){
                 pilaPosiciones.add(ranX3,ranY3-1, false);
                 //Imprimo el 4to disparo
                 cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
