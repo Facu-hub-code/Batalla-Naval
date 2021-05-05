@@ -10,7 +10,6 @@ public:
     Cola();
     Cola(Posicion*);
     void AgregarPosicion(int posX, int posY);
-    //void RetirarPila();
     void leerLista();
 private:
     Posicion* primero = NULL;
