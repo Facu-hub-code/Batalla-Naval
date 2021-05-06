@@ -13,9 +13,9 @@ private:
 public:
     Pila() { comienzo = new Posicion(); };
     Pila(Posicion* n) { comienzo= n; };
-    void add(int, int, bool ); //sumar nodos a la lista
+    void apilar(int, int, bool ); //sumar nodos a la lista
     void borrar();
-    bool esvacia(void);
+    bool esvacia();
     void setComienzo(Posicion*);
     Posicion *getComienzo() const;
 

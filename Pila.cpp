@@ -4,7 +4,7 @@
 
 #include "Pila.h"
 #include "Posicion.h"
-void Pila::add(int posX, int posY, bool ocupado){
+void Pila::apilar(int posX, int posY, bool ocupado){
     Posicion* nuevo = new Posicion(posX, posY, ocupado);
     nuevo->set_next(comienzo);
     comienzo = nuevo;

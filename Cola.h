@@ -6,14 +6,22 @@
 #define CODIGO_COLADEPILAS_H
 #include "Posicion.h"
 class Cola {
+private:
+    Posicion* primero ;
+    Posicion* final;
 public:
     Cola();
     Cola(Posicion*);
-    void AgregarPosicion(int posX, int posY);
+    void AgregarPosicion(Posicion*);
     void leerLista();
-private:
-    Posicion* primero = NULL;
-    Posicion* final= NULL;
+    bool esvacia();
+    Posicion *getPrimero() const;
+    Posicion *getFinal() const;
+
 };
+
+
+
+
 
 #endif //CODIGO_COLADEPILAS_H

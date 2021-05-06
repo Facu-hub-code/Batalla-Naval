@@ -26,15 +26,17 @@ bool Tablero::getDisparo(int fila, int columna) {
 }
 
 void Tablero::printDisparos() {
-    for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < 10; ++j) {
-            if(getDisparo(i,j)){
-                cout<<"\tX\t";
+    for (int i = 0; i < 11; ++i) {
+        for (int j = 0; j < 11; ++j) {
+            if(getDisparo(j,i)){
+                cout<<"\tX";
             }else{
-                cout<<"\tO\t";
+                cout<<"\tO";
             }
         }
         cout<<endl;
         cout<<endl;
     }
 }
+
+

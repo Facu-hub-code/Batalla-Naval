@@ -96,7 +96,12 @@ void primerDisparo() {
 
 
     Posicion *posAux = new Posicion(ranX, ranY, false);
+
+    //Creo la cola y le agrego la posicion
     Cola *colaPosiciones = new Cola(posAux);
+    colaPosiciones->AgregarPosicion(posAux);
+
+
 
     //Apilo la primer POS a disparaar
     pilaPosiciones = Pila(posAux);
@@ -124,10 +129,10 @@ void primerDisparo() {
             break;
         case 'v':
 
-            pilaPosiciones.add(ranX,ranY+1, false); //Arriba
-            pilaPosiciones.add(ranX,ranY-1, false); //Abajo
-            pilaPosiciones.add(ranX+1,ranY, false); // Derecha
-            pilaPosiciones.add(ranX-1,ranY, false); //TOPE - Comienzo de la PILA - Izquierda
+            pilaPosiciones.apilar(ranX, ranY + 1, false); //Arriba
+            pilaPosiciones.apilar(ranX, ranY - 1, false); //Abajo
+            pilaPosiciones.apilar(ranX + 1, ranY, false); // Derecha
+            pilaPosiciones.apilar(ranX - 1, ranY, false); //TOPE - Comienzo de la PILA - Izquierda
             segundoDisparo();
             break;
     }
@@ -192,7 +197,7 @@ void terceroDisparo(){
 
     switch (direccionX) {
         case -1: //Se movio para la Derecha
-            pilaPosiciones.add(ranX2+1,ranY2, false); //apilo con la pos movida a la derecha (respecto del 2do disparo) y pasa a ser el tope (apilo tercer disparo)
+            pilaPosiciones.apilar(ranX2 + 1, ranY2, false); //apilo con la pos movida a la derecha (respecto del 2do disparo) y pasa a ser el tope (apilo tercer disparo)
 
             //Imprimo el 3er disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual. (3er disparo)
@@ -210,7 +215,8 @@ void terceroDisparo(){
                     break;
                 case 'a': //CASO ESPECIAL
 
-                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-3, pilaPosiciones.getComienzo()->getY(), false); //Respecto del 3er disparo me muevo 3 lugares a la izquierda
+                    pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() - 3,
+                                          pilaPosiciones.getComienzo()->getY(), false); //Respecto del 3er disparo me muevo 3 lugares a la izquierda
                     cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                     contadorIntentos++;
                     tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -223,7 +229,8 @@ void terceroDisparo(){
                         cout<<"Crucero Hundido"<<endl;primerDisparo();}
 
                     if(estado == 'v'){
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-1, pilaPosiciones.getComienzo()->getY(), false);
+                        pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() - 1,
+                                              pilaPosiciones.getComienzo()->getY(), false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
                         contadorDeBarcosHundidos++;
@@ -237,7 +244,7 @@ void terceroDisparo(){
 
         case 1: //Se movio para la Izquierda.
             //Apilo
-            pilaPosiciones.add(ranX2-1,ranY2, false); //apilo (el 3er disparo) con la pos movida a la izquierda (respecto del disparo 2)
+            pilaPosiciones.apilar(ranX2 - 1, ranY2, false); //apilo (el 3er disparo) con la pos movida a la izquierda (respecto del disparo 2)
             //Imprimo el 3er disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
             contadorIntentos++;
@@ -254,7 +261,8 @@ void terceroDisparo(){
                     primerDisparo();
                     break;
                 case 'a':
-                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+3, pilaPosiciones.getComienzo()->getY(), false);
+                    pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() + 3,
+                                          pilaPosiciones.getComienzo()->getY(), false);
                     cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                     contadorIntentos++;
                     tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -266,7 +274,8 @@ void terceroDisparo(){
                         cout<<"Crucero Hundido"<<endl;primerDisparo();}
 
                     if(estado == 'v'){
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+1, pilaPosiciones.getComienzo()->getY(), false); // -1?
+                        pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() + 1,
+                                              pilaPosiciones.getComienzo()->getY(), false); // -1?
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         contadorIntentos++;
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -284,7 +293,7 @@ void terceroDisparo(){
         case 0: //Se movio en vertical
             int direccionY = ranY1-ranY2;
             if(direccionY == -1){
-                pilaPosiciones.add(ranX2,ranY2+1, false);
+                pilaPosiciones.apilar(ranX2, ranY2 + 1, false);
                 //Imprimo el disparo
                 cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                 contadorIntentos++;
@@ -300,7 +309,8 @@ void terceroDisparo(){
                         primerDisparo();
                         break;
                     case 'a':
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()-3, false);
+                        pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX(),
+                                              pilaPosiciones.getComienzo()->getY() - 3, false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         contadorIntentos++;
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -312,7 +322,8 @@ void terceroDisparo(){
                             cout<<"Crucero Hundido"<<endl;primerDisparo();}
 
                         if(estado == 'v'){
-                            pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-1, pilaPosiciones.getComienzo()->getY(), false);
+                            pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() - 1,
+                                                  pilaPosiciones.getComienzo()->getY(), false);
                             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                             tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
                             contadorDeBarcosHundidos++;
@@ -327,7 +338,7 @@ void terceroDisparo(){
                 }
             }
             if(direccionY == 1){
-                pilaPosiciones.add(ranX2,ranY2-1, false);
+                pilaPosiciones.apilar(ranX2, ranY2 - 1, false);
                 //Imprimo el 3er disparo
                 cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                 contadorIntentos++;
@@ -344,7 +355,8 @@ void terceroDisparo(){
                         primerDisparo();
                         break;
                     case 'a':
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()+3, false);
+                        pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX(),
+                                              pilaPosiciones.getComienzo()->getY() + 3, false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         contadorIntentos++;
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -356,7 +368,8 @@ void terceroDisparo(){
                             cout<<"Crucero Hundido"<<endl;primerDisparo();}
 
                         if(estado == 'v'){
-                            pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+1, pilaPosiciones.getComienzo()->getY(), false);
+                            pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() + 1,
+                                                  pilaPosiciones.getComienzo()->getY(), false);
                             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                             contadorIntentos++;
                             tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -390,7 +403,7 @@ void cuartoDisparo(){
     int direccionX= ranX2 - ranX3;
     switch (direccionX) {
         case -2: //Se movio para la Derecha
-            pilaPosiciones.add(ranX3+1,ranY3, false); //apilo con la pos movida a la derecha
+            pilaPosiciones.apilar(ranX3 + 1, ranY3, false); //apilo con la pos movida a la derecha
             //Imprimo el 4to disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
             contadorIntentos++;
@@ -406,7 +419,8 @@ void cuartoDisparo(){
                     primerDisparo();
                     break;
                 case 'a':
-                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-4, pilaPosiciones.getComienzo()->getY(), false);
+                    pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() - 4,
+                                          pilaPosiciones.getComienzo()->getY(), false);
                     cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                     contadorIntentos++;
                     tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -419,7 +433,7 @@ void cuartoDisparo(){
             break;
         case 2: //Se movio para la Izquierda.
             //Apilo
-            pilaPosiciones.add(ranX3-1,ranY3, false); //apilo con la pos movida a la izquierda
+            pilaPosiciones.apilar(ranX3 - 1, ranY3, false); //apilo con la pos movida a la izquierda
             //Imprimo el 4to disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
             tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -435,7 +449,8 @@ void cuartoDisparo(){
                     break;
 
                 case 'a':
-                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+4, pilaPosiciones.getComienzo()->getY(), false);
+                    pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX() + 4,
+                                          pilaPosiciones.getComienzo()->getY(), false);
                     cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                     contadorIntentos++;
                     tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -449,7 +464,7 @@ void cuartoDisparo(){
         case 0: //Se movio en vertical
             int direccionY = ranY2-ranY3;
             if(direccionY == -2){
-                pilaPosiciones.add(ranX3,ranY3+1, false);
+                pilaPosiciones.apilar(ranX3, ranY3 + 1, false);
                 //Imprimo el disparo
                 cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                 contadorIntentos++;
@@ -466,7 +481,8 @@ void cuartoDisparo(){
                         primerDisparo();
                         break;
                     case 'a':
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()-4, false);
+                        pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX(),
+                                              pilaPosiciones.getComienzo()->getY() - 4, false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         contadorIntentos++;
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -479,7 +495,7 @@ void cuartoDisparo(){
                 }
             }
             if(direccionY == 2){
-                pilaPosiciones.add(ranX3,ranY3-1, false);
+                pilaPosiciones.apilar(ranX3, ranY3 - 1, false);
                 //Imprimo el 4to disparo
                 cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                 contadorIntentos++;
@@ -496,7 +512,8 @@ void cuartoDisparo(){
                         break;
 
                     case 'a':
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()+4, false);
+                        pilaPosiciones.apilar(pilaPosiciones.getComienzo()->getX(),
+                                              pilaPosiciones.getComienzo()->getY() + 4, false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         contadorIntentos++;
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());

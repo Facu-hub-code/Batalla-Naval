@@ -11,6 +11,7 @@ public:
     void setDisparo(int, int);
     bool getDisparo(int, int);
     void printDisparos();
+
 private:
     bool disparosAnotados[11][11];
 };
