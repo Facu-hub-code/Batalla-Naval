@@ -247,7 +247,6 @@ void segundoDisparo(){
             primerDisparo();
             break;
         case 'v':
-            //pilaPosiciones.borrar();
             terceroDisparo();
     }
 }

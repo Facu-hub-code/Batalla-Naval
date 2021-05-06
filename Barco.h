@@ -12,18 +12,15 @@ public:
     Barco(Posicion posInicial, char tipo);
     Posicion getPosicion(int );
     char getTipo() const;
-    char getEstado() const;
 
     void setPos(Posicion pos, int a);
     void setTipo(char tipo);
-    void setEstado(char estado);
 
 
     void printDePos();
 private:
     Posicion posBarco[4];
     char tipo; //[Destructor, Submarino, Canonero, Crucero]
-    char estado;//[Averiado: a, Intacto: i, Hundido: h]
 };
 
 #endif //CODIGO_BARCO_H
