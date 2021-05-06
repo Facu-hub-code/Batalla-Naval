@@ -34,8 +34,8 @@ void revisarPosicionRepetida();
 
 int main() {
     //Guardar los barcos en el juego
-    //inicializarPorDefecto();
-    inicializarPorConsola();
+    inicializarPorDefecto();
+    //inicializarPorConsola();
     //Realizar los disparos y sus siguientes.
     jugar();
 
@@ -404,7 +404,7 @@ void cuartoDisparo(){
                     primerDisparo();
                     break;
                 case 'a':
-                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-3, pilaPosiciones.getComienzo()->getY(), false);
+                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()-4, pilaPosiciones.getComienzo()->getY(), false);
                     cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                     contadorIntentos++;
                     tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -433,7 +433,7 @@ void cuartoDisparo(){
                     break;
 
                 case 'a':
-                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+3, pilaPosiciones.getComienzo()->getY(), false);
+                    pilaPosiciones.add(pilaPosiciones.getComienzo()->getX()+4, pilaPosiciones.getComienzo()->getY(), false);
                     cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                     contadorIntentos++;
                     tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -464,7 +464,7 @@ void cuartoDisparo(){
                         primerDisparo();
                         break;
                     case 'a':
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()-3, false);
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()-4, false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         contadorIntentos++;
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
@@ -494,7 +494,7 @@ void cuartoDisparo(){
                         break;
 
                     case 'a':
-                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()+3, false);
+                        pilaPosiciones.add(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY()+4, false);
                         cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
                         contadorIntentos++;
                         tablero.setDisparo(pilaPosiciones.getComienzo()->getX(), pilaPosiciones.getComienzo()->getY());
