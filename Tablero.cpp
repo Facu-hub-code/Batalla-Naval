@@ -28,7 +28,7 @@ bool Tablero::getDisparo(int fila, int columna) {
 void Tablero::printDisparos() {
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
-            if(disparosAnotados[i][j]){
+            if(getDisparo(i,j)){
                 cout<<"\tX\t";
             }else{
                 cout<<"\tO\t";

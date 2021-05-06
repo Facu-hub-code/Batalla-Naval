@@ -56,7 +56,9 @@ void jugar() {
         primerDisparo();
     }
     cout << "GAME OVER" << endl;
+    tablero.printDisparos();
 }
+
 
 /*
  Revisa que no se dispare dos veces a la misma posicion
