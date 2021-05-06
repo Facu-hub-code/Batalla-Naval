@@ -96,10 +96,7 @@ void primerDisparo() {
 
 
     Posicion *posAux = new Posicion(ranX, ranY, false);
-
-    //Creo la cola y le agrego la posicion
     Cola *colaPosiciones = new Cola(posAux);
-    colaPosiciones->AgregarPosicion(posAux);
 
 
 

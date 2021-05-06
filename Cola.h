@@ -12,11 +12,6 @@ private:
 public:
     Cola();
     Cola(Posicion*);
-    void AgregarPosicion(Posicion*);
-    void leerLista();
-    bool esvacia();
-    Posicion *getPrimero() const;
-    Posicion *getFinal() const;
 
 };
 
