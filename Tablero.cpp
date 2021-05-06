@@ -3,16 +3,15 @@
 //
 #include <iostream>
 #include "Tablero.h"
-#include <iostream>
 using namespace std;
 
 /*
  * Inicializo el tablero sin disparos
  */
 Tablero::Tablero() {
-    for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < 10; ++j) {
-            disparosAnotados[i][j] = false;
+    for (int fila = 0; fila < 10; ++fila) {
+        for (int columna = 0; columna < 10; ++columna) {
+            disparosAnotados[fila][columna] = false;
         }
     }
 }
@@ -21,10 +20,15 @@ void Tablero::setDisparo(int fila, int columna) {
     disparosAnotados[fila][columna] = true;
 }
 
+bool Tablero::getDisparo(int fila, int columna) {
+    bool disparo = disparosAnotados[fila][columna];
+    return disparo;
+}
+
 void Tablero::printDisparos() {
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
-            if(disparosAnotados[i][j]){
+            if(disparosAnotados[i][j]){ //TODO revisar
                 cout<<"\tX\t";
             }else{
                 cout<<"\tO\t";

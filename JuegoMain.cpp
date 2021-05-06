@@ -8,6 +8,8 @@
 #import "Cola.h"
 #include "Pila.h"
 using namespace std;
+
+
 char estado;
 bool juegoFinalizado = false;
 int contadorIntentos=0;
@@ -15,8 +17,8 @@ int const cantidadDeBarcos = 10;
 int contadorDeBarcosHundidos;
 
 
-Tablero tablero = Tablero(); //Se guardan los disparos
-Barco barcos[cantidadDeBarcos]; //se ejecuta el constructor por defecto de cada barco.
+Tablero tablero = Tablero();
+Barco barcos[cantidadDeBarcos];
 Pila pilaPosiciones;
 
 //Prototipos
@@ -31,8 +33,7 @@ void revisarPosicionRepetida();
 
 
 int main() {
-
-    //Guardar los barcos en el juego y printearlos
+    //Guardar los barcos en el juego
     inicializarPorDefecto();
 
     //Realizar los disparos y sus siguientes.
@@ -42,25 +43,8 @@ int main() {
     for (int i = 0; i < cantidadDeBarcos; ++i) {
         barcos[i].printDePos();
     }
-cout<<"\nSe termino el juego en "<<contadorIntentos<<" intentos"<<endl;
+    cout<<"\nSe termino el juego en "<<contadorIntentos<<" intentos"<<endl;
     return 0;
-}
-/*
- Revisa que no se dispare dos veces a la misma posicion
- */
-bool revisarPosicionRepetida(int x, int y){
-        bool flag=false;
-    for (int i = 0; i <contadorIntentos ; ++i) {
-        if(tablero.disparosAnotados[x][y]== false){
-            tablero.disparosAnotados[x][y]=true;
-            flag=false;
-        }else {
-            flag=true;
-
-        }
-    }
-    return flag;
-
 }
 
 /*
@@ -155,41 +139,54 @@ void inicializarPorDefecto(){
  * Dependiendo de la respuesta del usuario calcula el siguiente disparo.
  */
 void jugar() {
-    while (!juegoFinalizado) {
+    while (!juegoFinalizado) { //Mientras el juego no este finalizado
         primerDisparo();
-
     }
     cout << "GAME OVER" << endl;
+}
 
+/*
+ Revisa que no se dispare dos veces a la misma posicion
+ */
+bool posicionRepetida(int x, int y){
+    if(!tablero.getDisparo(x,y)){
+        tablero.setDisparo(x,y);
+        return false;
+    }else {
+        return true;
+    }
 }
 
 /*
  * Realiza el primer disparo a una posicion Random.
  */
 void primerDisparo() {
-    if (contadorDeBarcosHundidos == cantidadDeBarcos) {
+    if (contadorDeBarcosHundidos >= cantidadDeBarcos) {
         juegoFinalizado = true;
-    } else {
-        cout << "Se intentara otro disparo..." << endl;
+    }
+    else
+    {
+
+    cout << "Se intentara otro disparo..." << endl;
 
     //Tomo las coordenadaas.
     int ranX = 1 + rand() % (10 - 1 + 1);
     int ranY = 1 + rand() % (10 - 1 + 1);
 
-        //Reviso que no haya disparado previamente a esa posicion.
-        while(revisarPosicionRepetida(ranX,ranY)){
-            ranX = 1 + rand() % (10 - 1 + 1);
-            ranY = 1 + rand() % (10 - 1 + 1);
-        }
-
+    //Reviso que no haya disparado previamente a esa posicion.
+    while(posicionRepetida(ranX, ranY) ){
+        ranX = 1 + rand() % (10 - 1 + 1);
+        ranY = 1 + rand() % (10 - 1 + 1);
+    }
 
 
     Posicion *posAux = new Posicion(ranX, ranY, false);
     Cola *colaPosiciones = new Cola(posAux);
+
     //Apilo la primer POS a disparaar
     pilaPosiciones = Pila(posAux);
+
     //Imprimo
-    //TODO aaa es para comitear este TODO
     cout << "Disparo a la posicion: [" << ranX << " ; " << ranY << " ]" << endl;
     contadorIntentos++;
     tablero.setDisparo(ranX, ranY);
@@ -325,7 +322,6 @@ void terceroDisparo(){
 
         case 1: //Se movio para la Izquierda.
             //Apilo
-            //TODO revisar cual quiero apilar
             pilaPosiciones.add(ranX2-1,ranY2, false); //apilo (el 3er disparo) con la pos movida a la izquierda (respecto del disparo 2)
             //Imprimo el 3er disparo
             cout << "Disparo a la posicion: [" <<pilaPosiciones.getComienzo()->getX()<< " ; "<< pilaPosiciones.getComienzo()->getY() << " ]" << endl; //Disparo al TOPE de la Pila Actual.
@@ -607,6 +603,7 @@ void cuartoDisparo(){
  * Dichas posiciones se completan segun se indique la direccion (ej char Direccion = U -> significa UP:Arriba).
  * Ej: si ingreso {[4 ; 4] ; U ; D} obtendre ocupadas las posiciones: [4,4] [4,5] [4,6] [4,7] por un DESTRUCTOR.
  */
+//TODO revisar que ande.
 void inicializarPorConsola() {
     for (int i = 0; i < cantidadDeBarcos; ++i) {
         cout<<"Barco ["<<i<<"]"<<endl;

@@ -9,7 +9,8 @@ class Tablero {
 public:
     Tablero();//Constructor por defecto
     void setDisparo(int, int);
+    bool getDisparo(int, int);
     void printDisparos();
-    bool disparosAnotados[10][10];
+    bool disparosAnotados[11][11];
 };
 #endif //CODIGO_TABLERO_H

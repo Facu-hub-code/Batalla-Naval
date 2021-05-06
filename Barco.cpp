@@ -9,7 +9,6 @@ using namespace std;
 
 Barco::Barco() {
     posBarco[0] =  Posicion();
-    estado = 'i';
 }
 
 /*
@@ -18,7 +17,6 @@ Barco::Barco() {
 */
 Barco::Barco(Posicion posInicial, char t) {
     posBarco[0] = posInicial;
-    estado = 'i';
     tipo = t;
 }
 
