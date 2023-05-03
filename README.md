@@ -1,4 +1,2 @@
-# BatallaNaval-Parcial1_AyED
-Colas y Pilas C++
-
-Parcial de la FCEFyN UNC
+# Batalla Naval - Algoritmos en C
+El proyecto mediante pilas y colas de datos permite jugar a localizar los barcos del oponente (PC).
